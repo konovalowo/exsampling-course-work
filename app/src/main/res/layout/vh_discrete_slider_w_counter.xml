@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/default_padding">
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/happy_placeholder"
+        tools:text="Счастлив" />
+
+    <TextView
+        android:id="@+id/counter"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_block_rounded"
+        android:padding="10dp"
+        android:text="@string/counter_default_value"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@id/seekBar"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/seekBar"
+        tools:text="-40" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="10dp"
+        android:paddingVertical="10dp"
+        android:progressBackgroundTint="@color/colorGreyDarker"
+        android:progressBackgroundTintMode="src_over"
+        android:progressTint="@color/colorGreyDarker"
+        android:thumb="@drawable/slider_thumb"
+        android:max="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/counter"
+        app:layout_constraintTop_toBottomOf="@+id/label"
+        tools:progress="4" />
+</androidx.constraintlayout.widget.ConstraintLayout>

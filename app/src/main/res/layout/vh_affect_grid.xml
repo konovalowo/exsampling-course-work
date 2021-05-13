@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screens.main.MainActivity">
+
+    <TextView
+        android:id="@+id/topLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Тревога"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/affectGrid"
+        app:layout_constraintEnd_toEndOf="@+id/affectGrid"
+        app:layout_constraintStart_toStartOf="@+id/affectGrid" />
+
+    <TextView
+        android:id="@+id/bottomLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Сонный"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/affectGrid"
+        app:layout_constraintStart_toStartOf="@+id/affectGrid"
+        app:layout_constraintTop_toBottomOf="@+id/affectGrid" />
+
+    <TextView
+        android:id="@+id/leftLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="268dp"
+        android:rotation="270"
+        android:text="Негативный"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/affectGrid"
+        app:layout_constraintEnd_toEndOf="@+id/affectGrid"
+        app:layout_constraintTop_toTopOf="@+id/affectGrid" />
+
+    <TextView
+        android:id="@+id/rightLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="268dp"
+        android:rotation="90"
+        android:text="Позитивный"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/affectGrid"
+        app:layout_constraintStart_toStartOf="@+id/affectGrid"
+        app:layout_constraintTop_toTopOf="@+id/affectGrid" />
+
+    <TextView
+        android:id="@+id/topLeftLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Стресс"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/affectGrid"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/topRightLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Возбуждение"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/affectGrid"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/bottomRightLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Расслабленность"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/affectGrid"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/bottomLeftLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Депрессия"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/affectGrid"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.konovalovea.expsampling.view.AffectGrid
+        android:id="@+id/affectGrid"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_margin="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cellCount="10" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

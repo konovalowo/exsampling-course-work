@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_block_rounded"
+    android:orientation="vertical"
+    android:padding="14dp">
+
+    <TextView
+        android:id="@+id/recordsMadeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="6" />
+
+    <TextView
+        android:id="@+id/recordsMadeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/records_made"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/recordsMadeText"
+        app:layout_constraintStart_toEndOf="@id/recordsMadeText" />
+
+    <TextView
+        android:id="@+id/recordsSkippedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recordsMadeText"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/recordsSkippedLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/records_missed"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/recordsSkippedText"
+        app:layout_constraintStart_toEndOf="@id/recordsSkippedText" />
+
+    <TextView
+        android:id="@+id/recordsToGoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recordsSkippedText"
+        tools:text="5" />
+
+    <TextView
+        android:id="@+id/recordsToGoLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/records_left"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/recordsToGoText"
+        app:layout_constraintStart_toEndOf="@id/recordsToGoText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

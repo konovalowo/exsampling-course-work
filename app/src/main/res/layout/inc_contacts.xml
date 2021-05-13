@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_block_rounded"
+    android:orientation="vertical"
+    android:padding="14dp">
+
+    <TextView
+        android:id="@+id/contactsNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Исследователь Имя Фамилия" />
+
+    <ImageView
+        android:id="@+id/contactsEmailIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_baseline_email_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/contactsNameText"
+        android:contentDescription="@string/email" />
+
+    <TextView
+        android:id="@+id/contactsEmailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="email"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/contactsEmailIcon"
+        app:layout_constraintStart_toEndOf="@id/contactsEmailIcon"
+        app:layout_constraintTop_toTopOf="@id/contactsEmailIcon"
+        tools:text="sample@gmail.com" />
+
+    <ImageView
+        android:id="@+id/contactsPhoneIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_baseline_phone_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/contactsEmailIcon"
+        android:contentDescription="@string/phone" />
+
+    <TextView
+        android:id="@+id/contactsPhoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="phone"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/contactsPhoneIcon"
+        app:layout_constraintStart_toEndOf="@id/contactsPhoneIcon"
+        app:layout_constraintTop_toTopOf="@id/contactsPhoneIcon"
+        tools:text="0 (000) 000-00-00" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
