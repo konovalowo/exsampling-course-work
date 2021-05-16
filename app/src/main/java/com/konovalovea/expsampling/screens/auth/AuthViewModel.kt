@@ -6,12 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.konovalovea.expsampling.repository.AuthRepository
 import com.konovalovea.expsampling.repository.AuthRepositoryImpl
-import com.konovalovea.expsampling.repository.AuthRepositoryMock
 import kotlinx.coroutines.launch
 
 class AuthViewModel : ViewModel() {
 
-    private val authRepository: AuthRepository = AuthRepositoryMock()
+    private val authRepository: AuthRepository = AuthRepositoryImpl()
 
     private val _authResult: MutableLiveData<AuthResult?> = MutableLiveData(null)
     val authResult: LiveData<AuthResult?> get() = _authResult

@@ -1,19 +1,18 @@
 package com.konovalovea.expsampling.screens.main
 
 import android.app.Application
-import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.*
 import com.konovalovea.expsampling.livedata.ConsumableValue
 import com.konovalovea.expsampling.repository.DashboardRepository
-import com.konovalovea.expsampling.repository.DashboardRepositoryMock
+import com.konovalovea.expsampling.repository.DashboardRepositoryImpl
 import com.konovalovea.expsampling.screens.main.model.MainScreenState
 import com.konovalovea.expsampling.screens.record.RecordActivity
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val dashboardRepository: DashboardRepository = DashboardRepositoryMock()
+    private val dashboardRepository: DashboardRepository = DashboardRepositoryImpl()
 
     private val _state = MutableLiveData<MainScreenState>(MainScreenState.Loading)
     val mainScreenState: LiveData<MainScreenState> get() = _state

@@ -7,14 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.konovalovea.expsampling.screens.record.model.Record
 import com.konovalovea.expsampling.screens.record.model.RecordScreenState
 import com.konovalovea.expsampling.repository.RecordRepository
-import com.konovalovea.expsampling.repository.RecordRepositoryMock
+import com.konovalovea.expsampling.repository.RecordRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 open class RecordViewModel : ViewModel() {
 
-    private val recordRepository: RecordRepository = RecordRepositoryMock()
+    private val recordRepository: RecordRepository = RecordRepositoryImpl()
 
     var isTutorial: Boolean = false
 
