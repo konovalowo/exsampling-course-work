@@ -1,5 +1,6 @@
 package com.konovalovea.expsampling.repository
 
+import com.konovalovea.expsampling.app.GlobalDependencies
 import com.konovalovea.expsampling.screens.main.model.groups.ContactsGroup
 import com.konovalovea.expsampling.screens.main.model.groups.Dashboard
 import com.konovalovea.expsampling.screens.main.model.groups.InfoGroup
@@ -8,18 +9,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import java.util.concurrent.TimeUnit
 
 class DashboardRepositoryMock : DashboardRepository {
 
     override suspend fun getDashboard(): Dashboard? = withContext(Dispatchers.IO) {
-        null
+        val stats = GlobalDependencies.INSTANCE.preferenceService.getStats()
         Dashboard(
             "День 3",
             StatsGroup(
-                "5",
-                "2",
-                "3",
-                "3"
+                stats.recordsMade.toString(),
+                (stats.lastRecordId + 1 - stats.recordsMade).toString(),
+                (30 - stats.lastRecordId - 1).toString(),
+                "10"
             ),
             InfoGroup(
                 "9:00",

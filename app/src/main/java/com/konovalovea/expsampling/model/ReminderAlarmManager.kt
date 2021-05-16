@@ -48,7 +48,7 @@ class ReminderAlarmManager(private val context: Context) {
                 notificationIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT
             )
-
+            
             if (calendar.after(System.currentTimeMillis())) {
                 calendar.add(Calendar.DATE, 1)
             }

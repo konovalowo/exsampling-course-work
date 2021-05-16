@@ -1,5 +1,6 @@
 package com.konovalovea.expsampling.screens.record
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.konovalovea.expsampling.R
+import com.konovalovea.expsampling.screens.main.MainActivity
 import com.konovalovea.expsampling.screens.record.model.RecordScreenState
 import com.konovalovea.expsampling.screens.record.recycler.optionrecycler.OptionsAdapter
 import com.konovalovea.expsampling.screens.record.recycler.optionrecycler.OptionsLayoutManager
@@ -69,8 +71,11 @@ import kotlinx.android.synthetic.main.inc_error.view.*
         }
     }
 
-    private fun onFinishEvent(finish: Boolean) {
+    private fun onFinishEvent(finish: Boolean?) {
+        if (finish == null)
+            return
         if (finish) {
+            startActivity(Intent(context, MainActivity::class.java))
             activity?.finish()
         } else {
             Toast.makeText(context, "Не удалось отправить ответ", Toast.LENGTH_LONG).show()

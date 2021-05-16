@@ -1,11 +1,16 @@
 package com.konovalovea.expsampling.repository
 
+import android.util.Log
+import com.konovalovea.expsampling.api.Api
+import com.konovalovea.expsampling.app.GlobalDependencies
+import com.konovalovea.expsampling.model.PreferenceStats
 import com.konovalovea.expsampling.screens.record.model.options.*
 import com.konovalovea.expsampling.screens.record.model.Question
 import com.konovalovea.expsampling.screens.record.model.Record
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 class RecordRepositoryMock : RecordRepository {
 
@@ -110,6 +115,10 @@ class RecordRepositoryMock : RecordRepository {
         )
     }
 
-    override suspend fun sendAnswers(record: Record) {
+    override suspend fun sendAnswers(record: Record) = withContext(Dispatchers.IO) {
+        val stats = GlobalDependencies.INSTANCE.preferenceService.getStats()
+        GlobalDependencies.INSTANCE.preferenceService.run {
+            saveStats(PreferenceStats(stats.recordsMade + 1, stats.lastRecordId))
+        }
     }
 }

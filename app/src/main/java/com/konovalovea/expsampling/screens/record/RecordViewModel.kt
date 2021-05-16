@@ -31,13 +31,13 @@ open class RecordViewModel : ViewModel() {
     private val _state = MutableLiveData<RecordScreenState>(RecordScreenState.Loading)
     val recordScreenState: LiveData<RecordScreenState> get() = _state
 
-    private val _finishEvent = MutableLiveData(false)
-    val finishEvent: LiveData<Boolean> get() = _finishEvent
+    private val _finishEvent = MutableLiveData<Boolean?>(null)
+    val finishEvent: LiveData<Boolean?> get() = _finishEvent
 
     open fun loadRecord() {
         viewModelScope.launch {
             _state.value = RecordScreenState.Loading
-            val record = recordRepository.getRecord()
+            val record = if (isTutorial) recordRepository.getTutorialRecord() else recordRepository.getRecord()
             if (record != null) {
                 this@RecordViewModel.record = record
                 updateLoadedState()
@@ -59,7 +59,10 @@ open class RecordViewModel : ViewModel() {
 
     fun onFinish() {
         viewModelScope.launch {
-            recordRepository.sendAnswers(record)
+            if (!isTutorial) {
+                recordRepository.sendAnswers(record)
+            }
+
             withContext(Dispatchers.Main) {
                 _finishEvent.value = true
             }

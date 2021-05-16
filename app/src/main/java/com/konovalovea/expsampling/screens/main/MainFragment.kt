@@ -47,8 +47,9 @@ class MainFragment : Fragment() {
 
     private fun setUpObservers() {
         viewModel.mainScreenState.observe(viewLifecycleOwner, Observer(this::renderState))
-        viewModel.startActivityEvent.observe(viewLifecycleOwner, Observer { activityClass ->
-            activityClass?.handle { startActivity(Intent(context, it)) }
+        viewModel.startActivityEvent.observe(viewLifecycleOwner, Observer { intentConsumable ->
+            intentConsumable?.handle { startActivity(it) }
+            activity?.finish()
         })
     }
 

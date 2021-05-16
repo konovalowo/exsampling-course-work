@@ -3,14 +3,15 @@ package com.konovalovea.expsampling.model
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.konovalovea.expsampling.R
-import com.konovalovea.expsampling.app.GlobalDependencies
 import com.konovalovea.expsampling.repository.PreferenceService
+import com.konovalovea.expsampling.screens.record.RecordActivity
 import java.util.concurrent.TimeUnit
 
 object ReminderNotificationManager {
@@ -35,7 +36,8 @@ object ReminderNotificationManager {
     class NotificationBroadcastReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context?, intent: Intent?) {
-            val notificationManager = context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager =
+                context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val timeout = intent?.getIntExtra(EXTRA_TIMEOUT, DEFAULT_TIMEOUT)!!
             val id = intent.getIntExtra(EXTRA_ID, -1)
             val preferenceService = PreferenceService(context)
@@ -48,7 +50,11 @@ object ReminderNotificationManager {
         }
 
         private fun buildNotification(context: Context, timeout: Long): Notification {
+            val resultIntent = RecordActivity.getStartIntent(context, false)
+            resultIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            val resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, 0)
             return NotificationCompat.Builder(context, CHANNEL_ID)
+                .setContentIntent(resultPendingIntent)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(context.getString(R.string.reminder_notification_title))
                 .setContentText(context.getString(R.string.reminder_notification_text))
