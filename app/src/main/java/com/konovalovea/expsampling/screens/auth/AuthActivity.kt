@@ -1,13 +1,12 @@
 package com.konovalovea.expsampling.screens.auth
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.konovalovea.expsampling.R
-import com.konovalovea.expsampling.repository.PreferenceService
 import com.konovalovea.expsampling.screens.main.MainActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 

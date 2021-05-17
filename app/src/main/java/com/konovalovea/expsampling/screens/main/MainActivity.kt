@@ -1,11 +1,8 @@
 package com.konovalovea.expsampling.screens.main
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.konovalovea.expsampling.R
-import com.konovalovea.expsampling.screens.record.RecordActivity
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 

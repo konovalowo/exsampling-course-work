@@ -10,7 +10,7 @@ import com.konovalovea.expsampling.screens.record.model.options.AffectGridOption
 import com.konovalovea.expsampling.view.AffectGrid
 import kotlinx.android.synthetic.main.vh_affect_grid.view.*
 
-class AffectGridOptionViewHolder(private val view: View): RecyclerView.ViewHolder(view)  {
+class AffectGridOptionViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(affectGridOption: AffectGridOption) {
         view.affectGrid.xRelativeValue = affectGridOption.valueX

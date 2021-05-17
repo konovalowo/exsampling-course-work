@@ -7,7 +7,6 @@ import com.konovalovea.expsampling.screens.main.model.groups.ContactsGroup
 import com.konovalovea.expsampling.screens.main.model.groups.Dashboard
 import com.konovalovea.expsampling.screens.main.model.groups.InfoGroup
 import com.konovalovea.expsampling.screens.main.model.groups.StatsGroup
-import java.lang.Exception
 import java.util.*
 import java.util.concurrent.TimeUnit
 

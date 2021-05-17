@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">expsampling</string>
+    <string name="app_name">exsampling</string>
     <string name="day_n">День %d</string>
     <string name="question_n">Вопрос %d</string>
     <string name="statistics">Статистика</string>

@@ -10,7 +10,6 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.konovalovea.expsampling.R
-import com.konovalovea.expsampling.repository.PreferenceService
 import com.konovalovea.expsampling.screens.record.RecordActivity
 import java.util.concurrent.TimeUnit
 
@@ -40,19 +39,23 @@ object ReminderNotificationManager {
                 context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val timeout = intent?.getIntExtra(EXTRA_TIMEOUT, DEFAULT_TIMEOUT)!!
             val id = intent.getIntExtra(EXTRA_ID, -1)
-            val preferenceService = PreferenceService(context)
-            preferenceService.apply {
-                val stats = getStats()
-                saveStats(PreferenceStats(stats.recordsMade, id))
-            }
-            val notification: Notification? = buildNotification(context, timeout.toLong())
-            notificationManager.notify(NOTIFICATION_ID, notification)
+            val notification: Notification? = buildNotification(context, timeout.toLong(), id)
+            notificationManager.notify(id, notification)
         }
 
-        private fun buildNotification(context: Context, timeout: Long): Notification {
-            val resultIntent = RecordActivity.getStartIntent(context, false)
-            resultIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            val resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, 0)
+        private fun buildNotification(
+            context: Context,
+            timeout: Long,
+            notificationId: Int
+        ): Notification {
+            val resultIntent = RecordActivity.getStartIntent(context, false, notificationId)
+            resultIntent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            val resultPendingIntent = PendingIntent.getActivity(
+                context,
+                1000,
+                resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
             return NotificationCompat.Builder(context, CHANNEL_ID)
                 .setContentIntent(resultPendingIntent)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)

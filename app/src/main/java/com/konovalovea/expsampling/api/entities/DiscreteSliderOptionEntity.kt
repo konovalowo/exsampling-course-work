@@ -10,10 +10,12 @@ class DiscreteSliderOptionEntity(
 ) : OptionEntity {
 
     override fun toOptionList(): List<ListOption> {
-        return listOf(DiscreteSliderOption(
-            label = scaleTexts.first(),
-            min = discreteSliderMinValue,
-            max = discreteSliderMaxValue
-        ))
+        return listOf(
+            DiscreteSliderOption(
+                label = scaleTexts.first(),
+                min = discreteSliderMinValue,
+                max = discreteSliderMaxValue
+            )
+        )
     }
 }

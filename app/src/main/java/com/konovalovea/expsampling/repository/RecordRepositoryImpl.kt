@@ -6,9 +6,6 @@ import com.konovalovea.expsampling.app.GlobalDependencies
 import com.konovalovea.expsampling.model.PreferenceStats
 import com.konovalovea.expsampling.screens.record.model.Question
 import com.konovalovea.expsampling.screens.record.model.Record
-import com.konovalovea.expsampling.screens.record.model.options.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
 class RecordRepositoryImpl : RecordRepository {
@@ -35,68 +32,28 @@ class RecordRepositoryImpl : RecordRepository {
         }
     }
 
-    override suspend fun getTutorialRecord(): Record = withContext(Dispatchers.IO) {
-        Record(
-            listOf(
-                Question(
-                    "Обучающая запись",
-                    "Перед продолжением, предлагаем пройти обучающую пробу!",
-                    emptyList()
-                ),
-                Question(
-                    "Вопрос 1",
-                    "Кто-то дает вам кошелек из кожи тюленя, животного редкого и вымирающего вида.",
-                    listOf(
-                        AffectGridOption()
-                    )
-                ),
-                Question(
-                    "Вопрос 2",
-                    "Вы лежите на диване и смотрите ТВ. Вдруг вы замечаете, что по вашему запястью ползет пчела.",
-                    listOf(
-                        RadioGroupOption("Хорошо"),
-                        RadioGroupOption("Плохо"),
-                        RadioGroupOption("Красиво"),
-                        RadioGroupOption("Центр"),
-                        RadioGroupOption("Пчела"),
-                        RadioGroupOption("Легко")
-                    )
-                ),
-                Question(
-                    "Вопрос 3",
-                    "Молодая девушка собралась покончить жизнь самоубийством, прыгнув с моста. В этот момент вы проходите мимо и видите ее. Ваша реакция:",
-                    listOf(
-                        SliderOption("Лево", "Право"),
-                        DiscreteSliderOption("Центр")
-                    )
-                ),
-                Question(
-                    "Вопрос 4",
-                    "Нищий, одетый в лохмотья, пристает к вам на улице и жалобно просит денег:",
-                    listOf(
-                        VerticalRadioGroupOption(
-                            listOf(
-                                RadioOption("Я посоветую ему заняться делом."),
-                                RadioOption("Куплю ему что-нибудь поесть и отведу в приют."),
-                                RadioOption("Возможно я помогу ему, если мне будет жалко его.")
-                            )
-                        )
-                    )
-                )
-            )
+    override suspend fun getTutorialRecord(): Record? {
+        val record = getRecord() ?: return null
+        val introQuestion = Question(
+            "Тестовая запись",
+            "Тестовая запись знакомит с опросом, присылаемым в течение исследования. " +
+                    "\nРезультат прохождения тестовой записи не будет сохранен.",
+            emptyList()
         )
+        val questions = mutableListOf(introQuestion) + record.questions
+        return Record(questions)
     }
 
     override suspend fun sendAnswers(record: Record) {
         try {
-            val token = GlobalDependencies.INSTANCE.tokenService.getToken() ?: return
-            for (question in record.questions) {
-                Api.service.sendAnswer(question.toAnswer(), token)
-            }
             val stats = GlobalDependencies.INSTANCE.preferenceService.getStats()
             GlobalDependencies.INSTANCE.preferenceService.saveStats(
                 PreferenceStats(stats.recordsMade + 1, stats.lastRecordId)
             )
+            val token = GlobalDependencies.INSTANCE.tokenService.getToken() ?: return
+            for (question in record.questions) {
+                Api.service.sendAnswer(question.toAnswer(), token)
+            }
         } catch (e: HttpException) {
             Log.w("RecordRepositoryImpl", e)
         }

@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <receiver
             android:process=":remote"
-            android:name=".model.ReminderNotificationManager$NotificationBroadcastReceiver" />
+            android:name=".model.ReminderNotificationManager$NotificationBroadcastReceiver"/>
         <activity android:name=".screens.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

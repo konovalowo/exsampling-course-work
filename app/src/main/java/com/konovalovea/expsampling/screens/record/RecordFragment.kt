@@ -1,5 +1,7 @@
 package com.konovalovea.expsampling.screens.record
 
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.konovalovea.expsampling.R
+import com.konovalovea.expsampling.app.GlobalDependencies
+import com.konovalovea.expsampling.model.PreferenceStats
 import com.konovalovea.expsampling.screens.main.MainActivity
 import com.konovalovea.expsampling.screens.record.model.RecordScreenState
 import com.konovalovea.expsampling.screens.record.recycler.optionrecycler.OptionsAdapter
@@ -18,8 +22,9 @@ import com.konovalovea.expsampling.screens.record.recycler.optionrecycler.Option
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.fragment_record.view.*
 import kotlinx.android.synthetic.main.inc_error.view.*
+import kotlin.math.max
 
-    class RecordFragment : Fragment() {
+class RecordFragment : Fragment() {
 
     private val viewModel: RecordViewModel by activityViewModels()
 
@@ -29,7 +34,15 @@ import kotlinx.android.synthetic.main.inc_error.view.*
         super.onCreate(savedInstanceState)
         arguments?.let {
             viewModel.isTutorial = it.getBoolean(IS_TUTORIAL_KEY)
+            viewModel.notificationId = it.getInt(NOTIFICATION_ID_KEY)
         }
+        if (!viewModel.isTutorial)
+            (context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
+                .cancelAll()
+        val stats = GlobalDependencies.INSTANCE.preferenceService.getStats()
+        GlobalDependencies.INSTANCE.preferenceService.saveStats(
+            PreferenceStats(stats.recordsMade, max(stats.lastRecordId, viewModel.notificationId))
+        )
     }
 
     override fun onCreateView(
@@ -64,7 +77,7 @@ import kotlinx.android.synthetic.main.inc_error.view.*
     }
 
     private fun renderState(recordScreenState: RecordScreenState) {
-        when(recordScreenState) {
+        when (recordScreenState) {
             is RecordScreenState.Loading -> onStateLoading()
             is RecordScreenState.Loaded -> onStateLoaded(recordScreenState)
             is RecordScreenState.Error -> onStateError()
@@ -127,11 +140,13 @@ import kotlinx.android.synthetic.main.inc_error.view.*
     companion object {
 
         private const val IS_TUTORIAL_KEY = "is_tutorial"
+        private const val NOTIFICATION_ID_KEY = "notification_id"
 
-        fun newInstance(isTutorial: Boolean) =
+        fun newInstance(isTutorial: Boolean, notificationId: Int) =
             RecordFragment().apply {
                 arguments = Bundle().apply {
                     putBoolean(IS_TUTORIAL_KEY, isTutorial)
+                    putInt(NOTIFICATION_ID_KEY, notificationId)
                 }
             }
     }

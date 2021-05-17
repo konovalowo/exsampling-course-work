@@ -14,18 +14,24 @@ class RecordActivity : AppCompatActivity(R.layout.activity_record) {
         super.onCreate(savedInstanceState)
         val bundle = intent.extras
         val isTutorial = bundle?.getBoolean(IS_TUTORIAL_KEY) ?: false
+        val notificationId = bundle?.getInt(NOTIFICATION_ID_KEY) ?: -1
         supportFragmentManager.beginTransaction()
-            .replace(R.id.recordFragmentContainer, RecordFragment.newInstance(isTutorial))
+            .replace(
+                R.id.recordFragmentContainer,
+                RecordFragment.newInstance(isTutorial, notificationId)
+            )
             .commit()
     }
 
     companion object {
 
         private const val IS_TUTORIAL_KEY = "is_tutorial"
+        private const val NOTIFICATION_ID_KEY = "notification_id"
 
-        fun getStartIntent(context: Context, isTutorial: Boolean): Intent {
+        fun getStartIntent(context: Context, isTutorial: Boolean, notificationId: Int): Intent {
             return Intent(context, RecordActivity::class.java)
                 .putExtra(IS_TUTORIAL_KEY, isTutorial)
+                .putExtra(NOTIFICATION_ID_KEY, notificationId)
         }
     }
 }

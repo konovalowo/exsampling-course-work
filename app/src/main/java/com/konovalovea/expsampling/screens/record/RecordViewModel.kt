@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.konovalovea.expsampling.screens.record.model.Record
-import com.konovalovea.expsampling.screens.record.model.RecordScreenState
 import com.konovalovea.expsampling.repository.RecordRepository
 import com.konovalovea.expsampling.repository.RecordRepositoryImpl
+import com.konovalovea.expsampling.screens.record.model.Record
+import com.konovalovea.expsampling.screens.record.model.RecordScreenState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -17,6 +17,7 @@ open class RecordViewModel : ViewModel() {
     private val recordRepository: RecordRepository = RecordRepositoryImpl()
 
     var isTutorial: Boolean = false
+    var notificationId: Int = -1
 
     private lateinit var record: Record
 
@@ -37,7 +38,8 @@ open class RecordViewModel : ViewModel() {
     open fun loadRecord() {
         viewModelScope.launch {
             _state.value = RecordScreenState.Loading
-            val record = if (isTutorial) recordRepository.getTutorialRecord() else recordRepository.getRecord()
+            val record =
+                if (isTutorial) recordRepository.getTutorialRecord() else recordRepository.getRecord()
             if (record != null) {
                 this@RecordViewModel.record = record
                 updateLoadedState()

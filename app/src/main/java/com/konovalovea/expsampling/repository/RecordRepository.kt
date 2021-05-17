@@ -6,7 +6,7 @@ interface RecordRepository {
 
     suspend fun getRecord(): Record?
 
-    suspend fun getTutorialRecord(): Record
+    suspend fun getTutorialRecord(): Record?
 
     suspend fun sendAnswers(record: Record)
 }

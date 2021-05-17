@@ -2,7 +2,10 @@ package com.konovalovea.expsampling.screens.main
 
 import android.app.Application
 import android.content.Intent
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.konovalovea.expsampling.livedata.ConsumableValue
 import com.konovalovea.expsampling.repository.DashboardRepository
 import com.konovalovea.expsampling.repository.DashboardRepositoryImpl
@@ -33,7 +36,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun onTutorialButtonClick() {
-        val recordIntent = RecordActivity.getStartIntent(getApplication(), true)
+        val recordIntent = RecordActivity.getStartIntent(getApplication(), true, -1)
         _startActivityEvent.value = ConsumableValue(recordIntent)
     }
 }

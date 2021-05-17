@@ -17,7 +17,10 @@ class QuestionsDeserializer : JsonDeserializer<RecordEntity> {
         val jsonArray = json.asJsonArray
         val questions = mutableListOf<QuestionEntity>()
         jsonArray.forEach { questionJsonElement ->
-            val question = context?.deserialize<QuestionEntity>(questionJsonElement, QuestionEntity::class.java)
+            val question = context?.deserialize<QuestionEntity>(
+                questionJsonElement,
+                QuestionEntity::class.java
+            )
             if (question != null) {
                 question.options = mutableListOf()
                 val optionClass = when (question.questionType) {

@@ -4,7 +4,6 @@ import android.util.Log
 import com.konovalovea.expsampling.api.Api
 import com.konovalovea.expsampling.api.entities.SignInResult
 import com.konovalovea.expsampling.app.GlobalDependencies
-import java.lang.Exception
 import kotlin.time.ExperimentalTime
 
 class AuthRepositoryImpl : AuthRepository {

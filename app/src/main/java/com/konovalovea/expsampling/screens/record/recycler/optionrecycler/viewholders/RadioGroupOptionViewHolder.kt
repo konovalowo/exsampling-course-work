@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.vh_radio_group.view.*
 
 class RadioGroupOptionViewHolder private constructor(
     private var view: View
-) : RecyclerView.ViewHolder(view)  {
+) : RecyclerView.ViewHolder(view) {
 
     private val radioAdapter: RadioGroupAdapter = RadioGroupAdapter()
 

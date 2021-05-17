@@ -7,12 +7,10 @@ import android.widget.SeekBar
 import androidx.recyclerview.widget.RecyclerView
 import com.konovalovea.expsampling.R
 import com.konovalovea.expsampling.screens.record.model.options.SliderOption
-import kotlinx.android.synthetic.main.vh_discrete_slider_w_counter.view.*
 import kotlinx.android.synthetic.main.vh_slider.view.*
-import kotlinx.android.synthetic.main.vh_slider.view.seekBar
 import kotlin.math.abs
 
-class SliderOptionViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
+class SliderOptionViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(sliderOption: SliderOption) {
         view.textLeftSide.text = sliderOption.labelLeft
@@ -21,7 +19,8 @@ class SliderOptionViewHolder(private val view: View): RecyclerView.ViewHolder(vi
             view.seekBar.max = abs(sliderOption.max - sliderOption.min)
         view.seekBar.progress = sliderOption.value
         view.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) = Unit
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) =
+                Unit
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
 

@@ -44,7 +44,7 @@ object Api {
 
     private const val BASE_URL = "https://psycho.sudox.ru/api/"
 
-    val service : ApiService by lazy {
+    val service: ApiService by lazy {
         val client = OkHttpClient.Builder().apply {
             addNetworkInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY

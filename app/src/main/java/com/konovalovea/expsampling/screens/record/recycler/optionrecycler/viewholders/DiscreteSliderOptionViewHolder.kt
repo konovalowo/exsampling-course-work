@@ -10,7 +10,7 @@ import com.konovalovea.expsampling.screens.record.model.options.DiscreteSliderOp
 import kotlinx.android.synthetic.main.vh_discrete_slider_w_counter.view.*
 import kotlin.math.abs
 
-class DiscreteSliderOptionViewHolder(private val view: View): RecyclerView.ViewHolder(view)  {
+class DiscreteSliderOptionViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(discreteSliderOption: DiscreteSliderOption) {
         view.seekBar.progress = discreteSliderOption.value

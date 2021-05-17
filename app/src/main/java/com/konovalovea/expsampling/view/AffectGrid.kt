@@ -36,13 +36,13 @@ class AffectGrid @JvmOverloads constructor(
         get() = max(min(field, height.toFloat()), 0f)
 
     var xRelativeValue
-        get() =  pointX / width * cellCount.toDouble() - cellCount / 2f
+        get() = pointX / width * cellCount.toDouble() - cellCount / 2f
         set(value) {
             pointX = ((value + cellCount / 2f) * width / cellCount).toFloat()
         }
 
     var yRelativeValue
-        get() =  -pointY / height * cellCount.toDouble() + cellCount / 2f
+        get() = -pointY / height * cellCount.toDouble() + cellCount / 2f
         set(value) {
             pointY = (-(value - cellCount / 2f) * height / cellCount).toFloat()
         }

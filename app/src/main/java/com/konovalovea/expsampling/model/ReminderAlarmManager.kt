@@ -5,12 +5,9 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.konovalovea.expsampling.api.entities.NotificationTime
 import com.konovalovea.expsampling.api.entities.SignInResult
 import java.util.*
-import java.util.concurrent.TimeUnit
 import kotlin.time.ExperimentalTime
-import kotlin.time.milliseconds
 
 class ReminderAlarmManager(private val context: Context) {
 
@@ -48,8 +45,8 @@ class ReminderAlarmManager(private val context: Context) {
                 notificationIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT
             )
-            
-            if (calendar.after(System.currentTimeMillis())) {
+
+            if (calendar.timeInMillis < System.currentTimeMillis()) {
                 calendar.add(Calendar.DATE, 1)
             }
 
@@ -73,8 +70,9 @@ class ReminderAlarmManager(private val context: Context) {
             set(Calendar.MINUTE, signInResult.timeNotificationStart.minutes)
         }
 
-        val minutesBetween = (notificationTimeEnd.totalMinutes - notificationTimeStart.totalMinutes) /
-                signInResult.notificationCountPerDay
+        val minutesBetween =
+            (notificationTimeEnd.totalMinutes - notificationTimeStart.totalMinutes) /
+                    signInResult.notificationCountPerDay
 
         repeat(signInResult.notificationCountPerDay) { index ->
             setNotificationOnDate(calendarStart, index)
