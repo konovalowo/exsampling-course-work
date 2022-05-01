@@ -6,15 +6,17 @@ import com.konovalovea.expsampling.app.GlobalDependencies
 import com.konovalovea.expsampling.model.PreferenceStats
 import com.konovalovea.expsampling.screens.record.model.Question
 import com.konovalovea.expsampling.screens.record.model.Record
+import io.reactivex.rxjava3.core.Single
 import retrofit2.HttpException
+import java.lang.NullPointerException
 
 class RecordRepositoryImpl : RecordRepository {
 
-    override suspend fun getRecord(): Record? {
-        return try {
-            val token = GlobalDependencies.INSTANCE.tokenService.getToken() ?: return null
-            val questions = Api.service.getQuestions(token)?.questions
-            Record(
+    override fun getRecord(): Single<Record> {
+        return Single.create<Record> {
+            val token = GlobalDependencies.INSTANCE.tokenService.getToken()
+            val questions = token?.let { it1 -> Api.service.getQuestions(it1)?.questions }
+            it.onSuccess(Record(
                 questions?.mapIndexed { index, questionEntity ->
                     Question(
                         "Вопрос ${index + 1}",
@@ -24,24 +26,39 @@ class RecordRepositoryImpl : RecordRepository {
                         questionEntity.questionSubtext,
                         questionEntity.instructionText
                     )
-                } ?: emptyList()
-            )
-        } catch (e: Exception) {
-            Log.w("RecordRepositoryImpl", e)
-            null
+                } ?: emptyList()))
+            it.onError(NullPointerException())
+
         }
+//        return try {
+//            val token = GlobalDependencies.INSTANCE.tokenService.getToken() ?: return null
+//            val questions = Api.service.getQuestions(token)?.questions
+//            Record(
+//                questions?.mapIndexed { index, questionEntity ->
+//                    Question(
+//                        "Вопрос ${index + 1}",
+//                        questionEntity.questionText,
+//                        questionEntity.options.flatMap { entityOption -> entityOption.toOptionList() },
+//                        questionEntity.id,
+//                        questionEntity.questionSubtext,
+//                        questionEntity.instructionText
+//                    )
+//                } ?: emptyList()
+//            )
+//        } catch (e: Exception) {
+//            Log.w("RecordRepositoryImpl", e)
+//            null
+//        }
     }
 
-    override suspend fun getTutorialRecord(): Record? {
-        val record = getRecord() ?: return null
+    override fun getTutorialRecord(): Single<Record> {
         val introQuestion = Question(
             "Тестовая запись",
             "Тестовая запись знакомит с опросом, присылаемым в течение исследования. " +
                     "\nРезультат прохождения тестовой записи не будет сохранен.",
             emptyList()
         )
-        val questions = mutableListOf(introQuestion) + record.questions
-        return Record(questions)
+        return getRecord().map { Record(mutableListOf(introQuestion) + it.questions) }
     }
 
     override suspend fun sendAnswers(record: Record) {
