@@ -6,6 +6,7 @@ import com.konovalovea.expsampling.app.GlobalDependencies
 import com.konovalovea.expsampling.model.PreferenceStats
 import com.konovalovea.expsampling.screens.record.model.Question
 import com.konovalovea.expsampling.screens.record.model.Record
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.HttpException
 import java.lang.NullPointerException
@@ -61,18 +62,28 @@ class RecordRepositoryImpl : RecordRepository {
         return getRecord().map { Record(mutableListOf(introQuestion) + it.questions) }
     }
 
-    override suspend fun sendAnswers(record: Record) {
-        try {
+    override fun sendAnswers(record: Record): Completable {
+        return Completable.create {
             val stats = GlobalDependencies.INSTANCE.preferenceService.getStats()
             GlobalDependencies.INSTANCE.preferenceService.saveStats(
                 PreferenceStats(stats.recordsMade + 1, stats.lastRecordId)
             )
-            val token = GlobalDependencies.INSTANCE.tokenService.getToken() ?: return
+            val token = GlobalDependencies.INSTANCE.tokenService.getToken()
             for (question in record.questions) {
-                Api.service.sendAnswer(question.toAnswer(), token)
+                token?.let { it1 -> Api.service.sendAnswer(question.toAnswer(), it1) }
             }
-        } catch (e: HttpException) {
-            Log.w("RecordRepositoryImpl", e)
         }
+//        try {
+//            val stats = GlobalDependencies.INSTANCE.preferenceService.getStats()
+//            GlobalDependencies.INSTANCE.preferenceService.saveStats(
+//                PreferenceStats(stats.recordsMade + 1, stats.lastRecordId)
+//            )
+//            val token = GlobalDependencies.INSTANCE.tokenService.getToken() ?: return
+//            for (question in record.questions) {
+//                Api.service.sendAnswer(question.toAnswer(), token)
+//            }
+//        } catch (e: HttpException) {
+//            Log.w("RecordRepositoryImpl", e)
+//        }
     }
 }

@@ -34,7 +34,7 @@ interface ApiService {
     ): RecordEntity?
 
     @POST("Participant/SendAnswer")
-    suspend fun sendAnswer(
+    fun sendAnswer(
         @Body answerEntity: AnswerEntity,
         @Query("token") token: String
     )

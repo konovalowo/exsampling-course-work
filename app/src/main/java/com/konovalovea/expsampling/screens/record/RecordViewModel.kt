@@ -68,14 +68,14 @@ open class RecordViewModel : ViewModel(), BaseViewModel {
     }
 
     fun onFinish() {
-        viewModelScope.launch {
-            if (!isTutorial) {
-                recordRepository.sendAnswers(record)
-            }
-
-            withContext(Dispatchers.Main) {
-                _finishEvent.value = true
-            }
+        if (!isTutorial) {
+            compositeDisposable.add(
+                recordRepository.sendAnswers(record).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        _finishEvent.value = true
+                    }
+            )
         }
     }
 
