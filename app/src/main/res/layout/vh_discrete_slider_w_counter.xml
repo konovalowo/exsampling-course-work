@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/happy_placeholder"
-        tools:text="Счастлив" />
+        tools:text="@string/happy_placeholder" />
 
     <TextView
         android:id="@+id/counter"

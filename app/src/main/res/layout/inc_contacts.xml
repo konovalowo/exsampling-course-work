@@ -16,7 +16,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Исследователь Имя Фамилия" />
+        tools:text="@string/str_researcher" />
 
     <ImageView
         android:id="@+id/contactsEmailIcon"

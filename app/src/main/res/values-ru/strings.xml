@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">exsampling</string>
+    <string name="day_n">День %d</string>
+    <string name="question_n">Вопрос %d</string>
+    <string name="statistics">Статистика</string>
+    <string name="fill_in_time">Время заполнения</string>
+    <string name="records_made">записей сделано</string>
+    <string name="records_missed">пропущена</string>
+    <string name="records_left">осталось</string>
+    <string name="n_days_till_the_end_of_the_research">дней до конца исследования</string>
+    <string name="from">с</string>
+    <string name="until">до</string>
+    <string name="notification_time">Напоминания будут приходить</string>
+    <string name="tutorial">Обучение</string>
+    <string name="make_sample_record">Сделать тестовую запись</string>
+    <string name="next">Продолжить</string>
+    <string name="back">Назад</string>
+    <string name="finish">Завершить</string>
+    <string name="counter_default_value">0</string>
+    <string name="happy_placeholder">Счастлив</string>
+    <string name="placeholder_how_do_you_feel">Как вы себя чувствуете?</string>
+    <string name="loading">Загрузка…</string>
+    <string name="error">Ошибка</string>
+    <string name="contacts">Контакты</string>
+    <string name="phone">phone</string>
+    <string name="email">email</string>
+    <string name="signing_in">Вход</string>
+    <string name="sing_in">Войти</string>
+    <string name="participant_code">Код участника</string>
+    <string name="cant_sign_in">Не удается войти?</string>
+    <string name="help_code_text">Для входа необходимо ввести 8-значный код участника:</string>
+    <string name="code_example">Пример кода</string>
+    <string name="example_code">12140031</string>
+    <string name="filling_in">Заполнение</string>
+    <string name="fill_in_notification">Уведомления о заполнении дневника</string>
+    <string name="reminder_notification_title">Время заполнять дневник!</string>
+    <string name="reminder_notification_text">Нажмите на уведомление, чтобы начать</string>
+    <string name="failed_to_sign_in">Не удалось войти в учетную запись</string>
+    <string name="error_screen_message">Ошибка при загрузке</string>
+    <string name="retry">Повторить</string>
+    <string name="str_anxiety">Тревога</string>
+    <string name="str_sleepy">Сонный</string>
+    <string name="str_negative">Негативный</string>
+    <string name="str_positive">Позитивный</string>
+    <string name="str_stress">Стресс</string>
+    <string name="str_excit">Возбуждение</string>
+    <string name="str_relax">Расслабленность</string>
+    <string name="str_depression">Депрессия</string>
+    <string name="str_researcher">Исследователь Имя Фамилия</string>
+
+    <plurals name="records_made">
+        <item quantity="one">%d запись сделана</item>
+        <item quantity="few">записи сделано</item>
+        <item quantity="many">записей сделано</item>
+        <item quantity="other">записей сделано</item>
+    </plurals>
+
+    <plurals name="skipped">
+        <item quantity="one">%d пропущена</item>
+        <item quantity="few">пропущено</item>
+        <item quantity="many">пропущено</item>
+        <item quantity="other">пропущена</item>
+    </plurals>
+
+    <plurals name="togo">
+        <item quantity="one">%d осталась</item>
+        <item quantity="few">осталось</item>
+        <item quantity="many">осталось</item>
+        <item quantity="other">осталось</item>
+    </plurals>
+
+    <plurals name="days_till_the_end_of_research">
+        <item quantity="one">%d день до конца исследования</item>
+        <item quantity="few">дня до конца исследования</item>
+        <item quantity="many">дней до конца исследования</item>
+        <item quantity="other">дней до конца исследования</item>
+    </plurals>
+</resources>
