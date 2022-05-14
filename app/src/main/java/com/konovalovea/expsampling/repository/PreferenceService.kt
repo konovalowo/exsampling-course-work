@@ -7,8 +7,9 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
 import com.konovalovea.expsampling.model.PreferenceStats
+import javax.inject.Inject
 
-class PreferenceService(val context: Context) {
+class PreferenceService @Inject constructor(val context: Context) {
 
     private val gson by lazy { Gson() }
     private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)

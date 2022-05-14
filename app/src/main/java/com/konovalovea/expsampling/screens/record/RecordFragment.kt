@@ -10,11 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.konovalovea.expsampling.R
-import com.konovalovea.expsampling.app.GlobalDependencies
+import com.konovalovea.expsampling.app.appComponent
 import com.konovalovea.expsampling.model.PreferenceStats
+import com.konovalovea.expsampling.repository.PreferenceService
 import com.konovalovea.expsampling.screens.main.MainActivity
 import com.konovalovea.expsampling.screens.record.model.RecordScreenState
 import com.konovalovea.expsampling.screens.record.recycler.optionrecycler.OptionsAdapter
@@ -22,13 +22,23 @@ import com.konovalovea.expsampling.screens.record.recycler.optionrecycler.Option
 import kotlinx.android.synthetic.main.fragment_record.*
 import kotlinx.android.synthetic.main.fragment_record.view.*
 import kotlinx.android.synthetic.main.inc_error.view.*
+import javax.inject.Inject
 import kotlin.math.max
 
-class RecordFragment : Fragment() {
+class RecordFragment() : Fragment() {
 
-    private val viewModel: RecordViewModel by activityViewModels()
+    @Inject
+    lateinit var viewModel: RecordViewModel
+
+    @Inject
+    lateinit var preferenceService: PreferenceService
 
     private lateinit var optionsAdapter: OptionsAdapter
+
+    override fun onAttach(context: Context) {
+        appComponent.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +49,8 @@ class RecordFragment : Fragment() {
         if (!viewModel.isTutorial)
             (context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
                 .cancelAll()
-        val stats = GlobalDependencies.INSTANCE.preferenceService.getStats()
-        GlobalDependencies.INSTANCE.preferenceService.saveStats(
+        val stats = preferenceService.getStats()
+        preferenceService.saveStats(
             PreferenceStats(stats.recordsMade, max(stats.lastRecordId, viewModel.notificationId))
         )
     }

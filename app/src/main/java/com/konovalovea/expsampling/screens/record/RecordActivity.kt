@@ -9,7 +9,6 @@ import com.konovalovea.expsampling.R
 
 class RecordActivity : AppCompatActivity(R.layout.activity_record) {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val bundle = intent.extras

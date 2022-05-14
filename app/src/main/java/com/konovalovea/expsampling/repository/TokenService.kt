@@ -1,15 +1,18 @@
 package com.konovalovea.expsampling.repository
 
 import android.content.Context
-import com.konovalovea.expsampling.app.GlobalDependencies
+import javax.inject.Inject
 
-class TokenService(val context: Context) {
+class TokenService @Inject constructor(
+    private val context: Context,
+    private val preferenceService: PreferenceService
+) {
 
     fun saveToken(token: String) {
-        GlobalDependencies.INSTANCE.preferenceService.saveToken(token)
+        preferenceService.saveToken(token)
     }
 
     fun getToken(): String? {
-        return GlobalDependencies.INSTANCE.preferenceService.getToken()
+        return preferenceService.getToken()
     }
 }

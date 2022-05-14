@@ -1,7 +1,7 @@
 package com.konovalovea.expsampling.screens.record.model
 
 import com.konovalovea.expsampling.api.entities.AnswerEntity
-import com.konovalovea.expsampling.app.GlobalDependencies
+import com.konovalovea.expsampling.repository.PreferenceService
 import com.konovalovea.expsampling.screens.record.model.options.*
 
 class Question(
@@ -13,7 +13,7 @@ class Question(
     val hint: String? = null
 ) {
 
-    fun toAnswer(): AnswerEntity {
+    fun toAnswer(preferenceService: PreferenceService): AnswerEntity {
         var answerText = ""
         for (option in options) {
             when (option) {
@@ -27,7 +27,7 @@ class Question(
         }
         answerText = answerText.trim(';')
         return AnswerEntity(
-            participantID = GlobalDependencies.INSTANCE.preferenceService.getCode()!!.toInt(),
+            participantID = preferenceService.getCode()!!.toInt(),
             questionID = this.id,
             answerText = answerText
         )

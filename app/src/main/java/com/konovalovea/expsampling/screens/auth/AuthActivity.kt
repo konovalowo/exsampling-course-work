@@ -3,18 +3,21 @@ package com.konovalovea.expsampling.screens.auth
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.konovalovea.expsampling.R
+import com.konovalovea.expsampling.app.appComponent
 import com.konovalovea.expsampling.screens.main.MainActivity
 import kotlinx.android.synthetic.main.activity_auth.*
+import javax.inject.Inject
 
 class AuthActivity : AppCompatActivity(R.layout.activity_auth) {
 
-    private val viewModel: AuthViewModel by viewModels()
+    @Inject
+    lateinit var viewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        appComponent.inject(this)
         super.onCreate(savedInstanceState)
 
         helpButton.setOnClickListener {

@@ -1,15 +1,6 @@
 package com.konovalovea.expsampling.api
 
-import com.google.gson.GsonBuilder
-import com.konovalovea.expsampling.api.entities.AnswerEntity
-import com.konovalovea.expsampling.api.entities.Project
-import com.konovalovea.expsampling.api.entities.RecordEntity
-import com.konovalovea.expsampling.api.entities.SignInResult
-import io.reactivex.rxjava3.core.Observable
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.konovalovea.expsampling.api.entities.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -40,30 +31,56 @@ interface ApiService {
     )
 }
 
+class ApiServiceStub : ApiService {
 
-object Api {
+    override fun signIn(userId: String): SignInResult {
+        return SignInResult(
+            token = "1",
+            notificationCountPerDay = 5,
+            timeNotificationStart = NotificationTime(hours = 1, minutes = 20, totalMinutes = 30),
+            timeNotificationEnd = NotificationTime(hours = 2, minutes = 20, totalMinutes = 30),
+            notificationTimeout = 10
+        )
+    }
 
-    private const val BASE_URL = "https://psycho.sudox.ru/api/"
+    override fun getProject(userId: String): Project {
+        return Project(
+            token = "1",
+            dateStart = Date(),
+            dateEnd = Date(),
+            notificationCountPerDay = 5,
+            timeNotificationStart = NotificationTime(hours = 1, minutes = 20, totalMinutes = 30),
+            timeNotificationEnd = NotificationTime(hours = 2, minutes = 20, totalMinutes = 30),
+            nickname = "Name",
+            email = "email@email.com",
+            phoneNumber = "88005553535"
+        )
+    }
 
-    val service: ApiService by lazy {
-        val client = OkHttpClient.Builder().apply {
-            addNetworkInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
-        }.build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(
-                GsonConverterFactory.create(
-                    GsonBuilder()
-                        .registerTypeAdapter(RecordEntity::class.java, QuestionsDeserializer())
-                        .registerTypeAdapter(Date::class.java, DateDeserializer())
-                        .create()
+    override fun getQuestions(token: String): RecordEntity {
+        return RecordEntity(
+            listOf(
+                QuestionEntity(
+                    id = 1,
+                    questionType = "Choose",
+                    questionText = "Вопрос",
+                    questionSubtext = "С подвохом",
+                    instructionText = null,
+                    options = mutableListOf(
+                        VerticalRadioGroupOptionEntity(
+                            answers = listOf(
+                                "Ответ 1",
+                                "Ответ 2",
+                                "Ответ 3"
+                            )
+                        )
+                    )
                 )
             )
-            .build()
-        retrofit.create(ApiService::class.java)
+        )
+    }
+
+    override fun sendAnswer(answerEntity: AnswerEntity, token: String) {
+        return
     }
 }
