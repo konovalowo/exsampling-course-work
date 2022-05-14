@@ -3,16 +3,15 @@ package com.konovalovea.expsampling.screens.record
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.konovalovea.expsampling.repository.RecordRepository
 import com.konovalovea.expsampling.repository.RecordRepositoryImpl
+import com.konovalovea.expsampling.screens.BaseViewModel
 import com.konovalovea.expsampling.screens.record.model.Record
 import com.konovalovea.expsampling.screens.record.model.RecordScreenState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 
-open class RecordViewModel : ViewModel() {
+open class RecordViewModel : ViewModel(), BaseViewModel {
 
     private val recordRepository: RecordRepository = RecordRepositoryImpl()
 
@@ -36,17 +35,24 @@ open class RecordViewModel : ViewModel() {
     val finishEvent: LiveData<Boolean?> get() = _finishEvent
 
     open fun loadRecord() {
-        viewModelScope.launch {
-            _state.value = RecordScreenState.Loading
-            val record =
-                if (isTutorial) recordRepository.getTutorialRecord() else recordRepository.getRecord()
-            if (record != null) {
-                this@RecordViewModel.record = record
-                updateLoadedState()
+        _state.value = RecordScreenState.Loading
+        compositeDisposable.add(
+            if (isTutorial) {
+                recordRepository.getTutorialRecord()
             } else {
-                _state.value = RecordScreenState.Error
-            }
-        }
+                recordRepository.getRecord()
+            }.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { result ->
+                        this.record = result
+                        updateLoadedState()
+                    },
+                    {
+                        _state.value = RecordScreenState.Error
+                    }
+                )
+        )
     }
 
     fun onNext() {
@@ -60,15 +66,21 @@ open class RecordViewModel : ViewModel() {
     }
 
     fun onFinish() {
-        viewModelScope.launch {
-            if (!isTutorial) {
-                recordRepository.sendAnswers(record)
-            }
-
-            withContext(Dispatchers.Main) {
-                _finishEvent.value = true
-            }
+        if (!isTutorial) {
+            compositeDisposable.add(
+                recordRepository.sendAnswers(record).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        _finishEvent.value = true
+                    }
+            )
         }
+        _finishEvent.value = true
+    }
+
+    override fun onCleared() {
+        compositeDisposable.clear()
+        super.onCleared()
     }
 
     private fun updateLoadedState() {
