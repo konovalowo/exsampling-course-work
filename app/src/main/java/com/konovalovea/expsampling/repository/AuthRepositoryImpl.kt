@@ -1,26 +1,20 @@
 package com.konovalovea.expsampling.repository
 
-import android.util.Log
 import com.konovalovea.expsampling.api.Api
 import com.konovalovea.expsampling.api.entities.SignInResult
-import com.konovalovea.expsampling.app.GlobalDependencies
+import io.reactivex.rxjava3.core.Single
 import kotlin.time.ExperimentalTime
 
 class AuthRepositoryImpl : AuthRepository {
 
     @ExperimentalTime
-    override suspend fun signInWithId(userId: String): SignInResult? {
-        return try {
-            val signInResult = Api.service.signIn(userId)
-            signInResult?.let {
-                GlobalDependencies.INSTANCE.tokenService.saveToken(it.token)
-                GlobalDependencies.INSTANCE.preferenceService.saveCode(userId)
-                GlobalDependencies.INSTANCE.reminderAlarmManger.setNotificationsForTimeInterval(it)
+    override fun signInWithId(userId: String): Single<SignInResult> =
+        Single.create<SignInResult> {
+            val result = Api.service.signIn(userId)
+            if (result == null) {
+                it.onError(NullPointerException())
+            } else {
+                it.onSuccess(result)
             }
-            signInResult
-        } catch (e: Exception) {
-            Log.w("AuthRepositoryImpl", e)
-            null
         }
-    }
 }

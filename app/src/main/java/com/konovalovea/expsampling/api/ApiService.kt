@@ -5,6 +5,7 @@ import com.konovalovea.expsampling.api.entities.AnswerEntity
 import com.konovalovea.expsampling.api.entities.Project
 import com.konovalovea.expsampling.api.entities.RecordEntity
 import com.konovalovea.expsampling.api.entities.SignInResult
+import io.reactivex.rxjava3.core.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,22 +19,22 @@ import java.util.*
 interface ApiService {
 
     @POST("ParticipantAuth/Login")
-    suspend fun signIn(
+    fun signIn(
         @Query("id") userId: String
     ): SignInResult?
 
     @POST("ParticipantAuth/Login")
-    suspend fun getProject(
+    fun getProject(
         @Query("id") userId: String
     ): Project?
 
     @GET("Participant/GetQuestions")
-    suspend fun getQuestions(
+    fun getQuestions(
         @Query("token") token: String
     ): RecordEntity?
 
     @POST("Participant/SendAnswer")
-    suspend fun sendAnswer(
+    fun sendAnswer(
         @Body answerEntity: AnswerEntity,
         @Query("token") token: String
     )
