@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.konovalovea.expsampling.repository.RecordRepository
-import com.konovalovea.expsampling.repository.RecordRepositoryImpl
 import com.konovalovea.expsampling.screens.BaseViewModel
 import com.konovalovea.expsampling.screens.record.model.Record
 import com.konovalovea.expsampling.screens.record.model.RecordScreenState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
-open class RecordViewModel : ViewModel(), BaseViewModel {
-
-    private val recordRepository: RecordRepository = RecordRepositoryImpl()
+open class RecordViewModel @Inject constructor(
+    private val recordRepository: RecordRepository
+) : ViewModel(), BaseViewModel {
 
     var isTutorial: Boolean = false
     var notificationId: Int = -1

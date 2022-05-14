@@ -1,14 +1,15 @@
 package com.konovalovea.expsampling.screens.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.konovalovea.expsampling.R
+import com.konovalovea.expsampling.app.appComponent
 import com.konovalovea.expsampling.screens.main.model.MainScreenState
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
@@ -17,10 +18,17 @@ import kotlinx.android.synthetic.main.inc_error.view.*
 import kotlinx.android.synthetic.main.inc_notification.view.*
 import kotlinx.android.synthetic.main.inc_record_stats.view.*
 import kotlinx.android.synthetic.main.inc_research_stats.view.*
+import javax.inject.Inject
 
 class MainFragment : Fragment() {
 
-    private val viewModel: MainViewModel by activityViewModels()
+    @Inject
+    lateinit var viewModel: MainViewModel
+
+    override fun onAttach(context: Context) {
+        appComponent.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

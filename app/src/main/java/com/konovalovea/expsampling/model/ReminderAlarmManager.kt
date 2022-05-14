@@ -7,9 +7,10 @@ import android.content.Intent
 import android.util.Log
 import com.konovalovea.expsampling.api.entities.SignInResult
 import java.util.*
+import javax.inject.Inject
 import kotlin.time.ExperimentalTime
 
-class ReminderAlarmManager(private val context: Context) {
+class ReminderAlarmManager @Inject constructor(private val context: Context) {
 
     @ExperimentalTime
     fun setNotificationsForTimeInterval(signInResult: SignInResult) {
