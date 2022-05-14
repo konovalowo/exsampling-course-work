@@ -3,6 +3,8 @@ package com.konovalovea.expsampling.repository
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
 import com.konovalovea.expsampling.model.PreferenceStats
 import javax.inject.Inject
@@ -10,6 +12,14 @@ import javax.inject.Inject
 class PreferenceService @Inject constructor(val context: Context) {
 
     private val gson by lazy { Gson() }
+    private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+    private val sharedPreferences = EncryptedSharedPreferences.create(
+        "PreferencesFilename",
+        masterKeyAlias,
+        context,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
 
     fun saveStats(stats: PreferenceStats) {
         editPreferences(context) {
@@ -19,7 +29,7 @@ class PreferenceService @Inject constructor(val context: Context) {
     }
 
     fun getStats(): PreferenceStats {
-        val statsJsonString = PreferenceManager.getDefaultSharedPreferences(context)
+        val statsJsonString = sharedPreferences
             .getString(STATS_KEY, null)
         return if (statsJsonString == null) {
             PreferenceStats(0, -1)
@@ -43,17 +53,15 @@ class PreferenceService @Inject constructor(val context: Context) {
     }
 
     fun getCode(): String? {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(CODE_KEY, null)
+        return sharedPreferences.getString(CODE_KEY, null)
     }
 
     fun getToken(): String? {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(TOKEN_KEY, null)
+        return sharedPreferences.getString(TOKEN_KEY, null)
     }
 
     private fun editPreferences(context: Context, editBlock: SharedPreferences.Editor.() -> Unit) {
-        with(PreferenceManager.getDefaultSharedPreferences(context).edit()) {
+        with(sharedPreferences.edit()) {
             editBlock()
             apply()
         }
