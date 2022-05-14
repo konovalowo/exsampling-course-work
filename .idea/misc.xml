@@ -3,14 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/activity_auth.xml" value="0.11302083333333333" />
-        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/activity_launch.xml" value="0.11302083333333333" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/activity_auth.xml" value="0.2" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/activity_launch.xml" value="0.2" />
         <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
         <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/activity_record.xml" value="0.11302083333333333" />
-        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/fragment_help_bottom_sheet.xml" value="0.536" />
-        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/fragment_main.xml" value="0.2" />
-        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/fragment_record.xml" value="0.11302083333333333" />
-        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/inc_contacts.xml" value="0.11302083333333333" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/fragment_help_bottom_sheet.xml" value="0.176" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/fragment_main.xml" value="0.176" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/fragment_record.xml" value="0.264" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/inc_contacts.xml" value="0.176" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/inc_error.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/inc_notification.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/inc_record_stats.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/inc_research_stats.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/vh_affect_grid.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/vh_discrete_slider_w_counter.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/vh_radio_group.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/vh_radio_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/vh_slider.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/vh_vertical_radio_group.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/AndroidStudioProjects/exsampling-course-work/app/src/main/res/layout/view_toggle_number.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
