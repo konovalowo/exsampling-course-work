@@ -1,7 +1,6 @@
 package com.konovalovea.expsampling.repository
 
-import com.konovalovea.expsampling.api.Api
-import com.konovalovea.expsampling.app.GlobalDependencies
+import com.konovalovea.expsampling.api.ApiService
 import com.konovalovea.expsampling.screens.main.model.groups.ContactsGroup
 import com.konovalovea.expsampling.screens.main.model.groups.Dashboard
 import com.konovalovea.expsampling.screens.main.model.groups.InfoGroup
@@ -9,18 +8,23 @@ import com.konovalovea.expsampling.screens.main.model.groups.StatsGroup
 import io.reactivex.rxjava3.core.Single
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class DashboardRepositoryImpl : DashboardRepository {
+class DashboardRepositoryImpl @Inject constructor(
+    private val apiService: ApiService,
+    private val tokenService: TokenService,
+    private val preferenceService: PreferenceService
+) : DashboardRepository {
 
     override fun getDashboard(): Single<Dashboard> {
         return Single.create<Dashboard> {
             try {
-                val userId = GlobalDependencies.INSTANCE.preferenceService.getCode()
-                val project = Api.service.getProject(userId!!)!!
-                GlobalDependencies.INSTANCE.tokenService.saveToken(project.token)
+                val userId = preferenceService.getCode()
+                val project = apiService.getProject(userId!!)!!
+                tokenService.saveToken(project.token)
                 val daysDiff = (Date(System.currentTimeMillis()).time - project.dateStart.time)
                 val endDaysDiff = (project.dateEnd.time - Date(System.currentTimeMillis()).time)
-                val stats = GlobalDependencies.INSTANCE.preferenceService.getStats()
+                val stats = preferenceService.getStats()
                 it.onSuccess(
                     Dashboard(
                         "День ${TimeUnit.DAYS.convert(daysDiff, TimeUnit.MILLISECONDS)}",
