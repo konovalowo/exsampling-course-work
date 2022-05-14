@@ -3,7 +3,6 @@ package com.konovalovea.expsampling.screens.record
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.konovalovea.expsampling.repository.RecordRepository
 import com.konovalovea.expsampling.repository.RecordRepositoryImpl
 import com.konovalovea.expsampling.screens.BaseViewModel
@@ -11,9 +10,6 @@ import com.konovalovea.expsampling.screens.record.model.Record
 import com.konovalovea.expsampling.screens.record.model.RecordScreenState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 open class RecordViewModel : ViewModel(), BaseViewModel {
 
@@ -52,7 +48,9 @@ open class RecordViewModel : ViewModel(), BaseViewModel {
                         this.record = result
                         updateLoadedState()
                     },
-                    { _state.value = RecordScreenState.Error }
+                    {
+                        _state.value = RecordScreenState.Error
+                    }
                 )
         )
     }
@@ -77,6 +75,7 @@ open class RecordViewModel : ViewModel(), BaseViewModel {
                     }
             )
         }
+        _finishEvent.value = true
     }
 
     override fun onCleared() {
