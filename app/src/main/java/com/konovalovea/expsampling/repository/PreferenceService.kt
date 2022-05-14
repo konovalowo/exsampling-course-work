@@ -2,7 +2,6 @@ package com.konovalovea.expsampling.repository
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.preference.PreferenceManager
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
@@ -14,7 +13,7 @@ class PreferenceService @Inject constructor(val context: Context) {
     private val gson by lazy { Gson() }
     private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
     private val sharedPreferences = EncryptedSharedPreferences.create(
-        "PreferencesFilename",
+        "prefs",
         masterKeyAlias,
         context,
         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
