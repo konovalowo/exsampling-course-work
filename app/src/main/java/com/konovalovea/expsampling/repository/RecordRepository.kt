@@ -11,4 +11,6 @@ interface RecordRepository {
     fun getTutorialRecord(): Single<Record>
 
     fun sendAnswers(record: Record) : Completable
+
+    companion object{}
 }

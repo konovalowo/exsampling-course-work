@@ -1,6 +1,7 @@
 package com.konovalovea.expsampling.api
 
 import com.konovalovea.expsampling.api.entities.*
+import io.reactivex.rxjava3.core.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -8,7 +9,7 @@ import retrofit2.http.Query
 import java.util.*
 
 interface ApiService {
-
+    companion object{}
     @POST("ParticipantAuth/Login")
     fun signIn(
         @Query("id") userId: String
@@ -18,6 +19,7 @@ interface ApiService {
     fun getProject(
         @Query("id") userId: String
     ): Project?
+    //Project?
 
     @GET("Participant/GetQuestions")
     fun getQuestions(
@@ -41,6 +43,7 @@ class ApiServiceStub : ApiService {
             timeNotificationEnd = NotificationTime(hours = 2, minutes = 20, totalMinutes = 30),
             notificationTimeout = 10
         )
+
     }
 
     override fun getProject(userId: String): Project {

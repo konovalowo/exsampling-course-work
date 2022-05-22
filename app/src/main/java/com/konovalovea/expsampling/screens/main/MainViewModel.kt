@@ -2,6 +2,7 @@ package com.konovalovea.expsampling.screens.main
 
 import android.app.Application
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,7 +26,7 @@ class MainViewModel @Inject constructor(
     private val _startActivityEvent: MutableLiveData<ConsumableValue<Intent>> = MutableLiveData()
     val startActivityEvent: LiveData<ConsumableValue<Intent>> get() = _startActivityEvent
 
-    fun loadDashboard() {
+    fun loadDashboard(): Any? {
         _state.value = MainScreenState.Loading
         compositeDisposable.add(
             dashboardRepository.getDashboard()
@@ -33,10 +34,14 @@ class MainViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     _state.value = MainScreenState.Loaded(result)
+                    Log.d("TAG_VM", "loadDashboard1 ")
                 }) {
                     _state.value = MainScreenState.Error
+                    Log.d("TAG_VM", "loadDashboard2")
                 }
         )
+
+        return null
     }
 
     fun onTutorialButtonClick() {

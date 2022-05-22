@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class AppModule(private val application: Application) {
+open class AppModule(private val application: Application) {
 
     @Provides
     fun providerContext(): Context = application.applicationContext
