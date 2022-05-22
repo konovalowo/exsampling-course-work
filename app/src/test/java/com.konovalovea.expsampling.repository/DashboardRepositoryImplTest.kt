@@ -172,7 +172,7 @@ class DashboardRepositoryImplTest {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                assertEquals(1, it.questions.size)
+                assertEquals("День ${TimeUnit.DAYS.convert(15L, TimeUnit.MILLISECONDS)}", it)
             },{
                 throwable = it
             })
