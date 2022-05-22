@@ -10,12 +10,14 @@ import com.konovalovea.expsampling.app.appComponent
 import com.konovalovea.expsampling.screens.main.MainActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 import javax.inject.Inject
+import kotlin.time.ExperimentalTime
 
 class AuthActivity : AppCompatActivity(R.layout.activity_auth) {
 
     @Inject
     lateinit var viewModel: AuthViewModel
 
+    @OptIn(ExperimentalTime::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponent.inject(this)
         super.onCreate(savedInstanceState)
