@@ -14,7 +14,8 @@ class AuthRepositoryImpl @Inject constructor(
     private val reminderAlarmManager: ReminderAlarmManager
 ): AuthRepository {
 
-    @ExperimentalTime
+    //@ExperimentalTime
+    @OptIn(ExperimentalTime::class)
     override fun signInWithId(userId: String): Single<SignInResult> =
         Single.create<SignInResult> {
             val result = apiService.signIn(userId)

@@ -26,7 +26,7 @@ class SharedPreferencesTest {
         ActivityTestRule(MainActivity::class.java)
 
     @Mock
-    var fakeContext: Context? = null
+    lateinit var context: Context
 
     private lateinit var preferences: PreferenceService
 
