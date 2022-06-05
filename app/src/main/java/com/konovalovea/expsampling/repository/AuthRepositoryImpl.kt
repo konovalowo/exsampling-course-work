@@ -18,7 +18,7 @@ class AuthRepositoryImpl @Inject constructor(
 ): AuthRepository {
 
     @OptIn(ExperimentalTime::class)
-     override fun signInWithId(userId: String): Single<SignInResult> =
+    override fun signInWithId(userId: String): Single<SignInResult> =
         Single.create<SignInResult> {
             val result = apiService.signIn(userId)
             if (result == null) {
