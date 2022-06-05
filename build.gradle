@@ -46,7 +46,13 @@ tasks.withType(Test) {
         events("passed", "skipped", "failed")
     }
 }
-
+tasks.withType(Test) {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+//tasks.withType<Test> { useJUnitPlatform() }

@@ -6,6 +6,7 @@ import com.konovalovea.expsampling.api.ApiServiceStub
 import com.konovalovea.expsampling.api.DateDeserializer
 import com.konovalovea.expsampling.api.QuestionsDeserializer
 import com.konovalovea.expsampling.api.entities.RecordEntity
+import com.konovalovea.expsampling.app.ApiModule_ApiServiceFactory.apiService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -15,10 +16,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
 @Module
-class ApiModule {
+open class ApiModule {
 
     @Provides
-    fun apiService(): ApiService {
+    open fun apiService(): ApiService {
         return if (USE_STUB) {
             ApiServiceStub()
         } else {
@@ -44,7 +45,7 @@ class ApiModule {
         }
     }
 
-    private companion object {
+    companion object {
         const val BASE_URL = "https://psycho.sudox.ru/api/"
         const val USE_STUB = true
     }
